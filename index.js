@@ -5,7 +5,7 @@ const getMangaDetails = require('./controllers/getMangaDetails');
 const getPics = require('./controllers/GetMangaPics');
 /* const cloudinary = require('cloudinary'); */
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 7000;
 const app = express();
 app.use(cors());
 app.listen(port, () => {
