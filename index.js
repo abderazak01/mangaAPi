@@ -12,6 +12,8 @@ app.listen(port, () => {
   console.log(`running on port ${port} `);
 });
 
-app.get('/', getAllManga);
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 app.get('/details/:mangaName', getMangaDetails);
 app.get('/details/:mangaName/:chapter', getPics);
