@@ -1,15 +1,15 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 const getAllMangas = async (req, res) => {
-  const mangas = [];
+  const mangas = [{ name: 'abdo', age: 21 }];
   try {
     const { data } = await axios.get('https://teamx.fun/manga/');
     const $ = cheerio.load(data);
     //grabing the data
-    $('.thumb img').each((i, ele) => {
+    /*  $('.thumb img').each((i, ele) => {
       const img = $(ele).attr('src');
       mangas.push({ img: img });
-    });
+    }); */
     /*  $('.thumb h3 a').each((i, ele) => {
       const link = $(ele).attr('href');
       const name = $(ele).text();
