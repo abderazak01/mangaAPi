@@ -12,31 +12,35 @@ const getMangaDetails = (req, res) => {
 
   const { mangaName } = req.params;
   axios
-    .get(`https://teamx.fun/manga/${mangaName}`)
+    .get(`https://mnhaestate.com/series/${mangaName}`)
     .then((response) => {
       const { data } = response;
       const $ = cheerio.load(data);
-      const img = $('.thumb img').attr('src');
+      const img = $('.text-right img').attr('src');
       MangaDetail.cover = img;
       //////////////-----------////////////////
-      const name = $('.col-md-9 h3').text();
+      const name = $('.author-info-title h1').text();
       /* const namme = name.replace(/\s/g, '-'); */
       MangaDetail.name = name;
       //////////////-----------////////////////
-      const story = $('.story p').text();
+      const story = $('.review-content p').text();
       MangaDetail.story = story;
       //////////////-----------////////////////
 
-      $('.single-manga-chapter a').each((i, ele) => {
+      $('.eplister a').each((i, ele) => {
         const LinkOfchapter = $(ele).attr('href');
-        const nameOfChapter = $(ele).text();
-        MangaDetail.chapters.push({ name: nameOfChapter, link: LinkOfchapter });
+        MangaDetail.chapters.push({ link: LinkOfchapter });
       });
-      $('.genre a').each((i, ele) => {
+
+      $('.epl-title').each((i, ele) => {
+        const nameOfChapter = $(ele).text();
+        MangaDetail.chapters[i].name = nameOfChapter;
+      });
+      $('.review-author-info a').each((i, ele) => {
         const tag = $(ele).text();
         MangaDetail.tags.push(tag);
       });
-      MangaDetail.chapters.reverse();
+
       res.json(MangaDetail);
     })
     .catch((err) => {
